@@ -96,7 +96,7 @@ Cal AI is a Flutter mobile app that uses artificial intelligence to make calorie
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/junaidjamel/cal_scanner
+git clone [https://github.com/eslamahmedfahmy/calories_scaner]
 ```
 
 **2. Install dependencies**
