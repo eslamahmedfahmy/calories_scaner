@@ -161,13 +161,13 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Author
 
-**Junaid Jamel**
+**Eslam Fahmy**
 
-- Email: junaidsupercoder@gmail.com
-- LinkedIn: [linkedin.com/in/junaid-jamel](https://www.linkedin.com/in/junaid-jamel/)
+- Email: eslam50080@yahoo.com
+- LinkedIn: [www.linkedin.com/in/eslam-ahmed-fahmy-340220202]
 
 ---
 
 <div align="center">
-<sub>Built with Flutter &mdash; Cal AI &copy; Junaid Jamel</sub>
+<sub>Built with Flutter &mdash; Cal AI &copy; Eslam Fahmy</sub>
 </div>
