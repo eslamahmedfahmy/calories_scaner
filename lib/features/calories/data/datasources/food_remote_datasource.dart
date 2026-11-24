@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/network/api_service.dart';
@@ -12,7 +11,7 @@ class FoodRemoteDataSource {
   final ApiService _api;
   FoodRemoteDataSource(this._api);
 
-  String get _apiKey => dotenv.env['GROK_API_KEY'] ?? '';
+  static const String _apiKey = String.fromEnvironment('GROQ_API_KEY');
 
   Future<Either<Failure, Food>> detectFoodAndCalories(File imageFile) async {
     try {
@@ -20,7 +19,7 @@ class FoodRemoteDataSource {
         return left(CacheFailure('File not found', cause: imageFile.path));
       }
       if (_apiKey.isEmpty) {
-        return left(const NetworkFailure('Missing GROK_API_KEY'));
+        return left(const NetworkFailure('Missing GROQ_API_KEY (run with --dart-define=GROQ_API_KEY=...)'));
       }
 
       final imageBytes = await imageFile.readAsBytes();
