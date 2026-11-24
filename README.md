@@ -107,11 +107,13 @@ flutter pub get
 
 **3. Configure environment variables**
 
-Add your API key to the `.env` file in the root directory:
+The app reads a Groq API key at build time. Do not put it in a file inside the project. Pass it when you run:
 
-```env
-GROK_API_KEY=your_api_key_here
+```bash
+flutter run --dart-define=GROQ_API_KEY=your_key_here
 ```
+
+See `.env.example` for the variable name. Never commit real keys.
 
 **4. Run the app**
 
