@@ -12,13 +12,13 @@ class CalorieCalculator {
 
     // Calculate BMR using Mifflin-St Jeor Equation
     if (gender == 'Male') {
-      bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+      bmr = 10 * weight + 6.25 * height - 5 * age + 5;
     } else if (gender == 'Female') {
-      bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+      bmr = 10 * weight + 6.25 * height - 5 * age - 161;
     } else {
       // Average BMR for other genders
-      double maleBmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
-      double femaleBmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+      double maleBmr = 10 * weight + 6.25 * height - 5 * age + 5;
+      double femaleBmr = 10 * weight + 6.25 * height - 5 * age - 161;
       bmr = (maleBmr + femaleBmr) / 2;
     }
 

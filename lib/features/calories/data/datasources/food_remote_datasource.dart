@@ -13,6 +13,13 @@ class FoodRemoteDataSource {
 
   static const String _apiKey = String.fromEnvironment('GROQ_API_KEY');
 
+  /// The model sometimes returns numbers as strings like "120 kcal".
+  static double _toDouble(dynamic value) {
+    if (value is num) return value.toDouble();
+    final match = RegExp(r'-?\d+(\.\d+)?').firstMatch(value?.toString() ?? '');
+    return match == null ? 0.0 : double.parse(match.group(0)!);
+  }
+
   Future<Either<Failure, Food>> detectFoodAndCalories(File imageFile) async {
     try {
       if (!imageFile.existsSync()) {
@@ -63,7 +70,7 @@ class FoodRemoteDataSource {
             return left(NetworkFailure('Invalid API response', cause: data));
           }
 
-          final match = RegExp(r'\\{.*\\}', dotAll: true).firstMatch(output);
+          final match = RegExp(r'\{.*\}', dotAll: true).firstMatch(output);
           if (match == null) {
             return left(NetworkFailure('No JSON found in response', cause: output));
           }
@@ -76,11 +83,13 @@ class FoodRemoteDataSource {
           return right(
             Food(
               id: DateTime.now().millisecondsSinceEpoch.toString(),
-              name: foodData['name'] as String,
-              calories: (foodData['calories'] as num).toDouble(),
-              protein: (foodData['protein'] as num).toDouble(),
-              carbs: (foodData['carbs'] as num).toDouble(),
-              fat: (foodData['fat'] as num).toDouble(),
+              name: (foodData['name']?.toString().trim().isNotEmpty ?? false)
+                  ? foodData['name'].toString().trim()
+                  : 'Unknown food',
+              calories: _toDouble(foodData['calories']),
+              protein: _toDouble(foodData['protein']),
+              carbs: _toDouble(foodData['carbs']),
+              fat: _toDouble(foodData['fat']),
               quantity: 100.0,
               timestamp: DateTime.now(),
             ),
