@@ -84,7 +84,7 @@ class FoodLogCubit extends Cubit<FoodLogState> {
     final result = await _addFood(meal);
     result.match(
       (l) => emit(state.copyWith(error: l.message)),
-      (_) async => loadDailyLog(),
+      (_) => loadDailyLog(),
     );
   }
 
@@ -115,6 +115,7 @@ class FoodLogCubit extends Cubit<FoodLogState> {
         );
       },
       (meal) async {
+        if (isClosed) return;
         emit(
           state.copyWith(
             scannedMeal: meal,
@@ -123,7 +124,12 @@ class FoodLogCubit extends Cubit<FoodLogState> {
             successMessage: 'Food "${meal.name}" detected successfully',
           ),
         );
-        await _addFood(meal);
+        final saved = await _addFood(meal);
+        if (isClosed) return;
+        if (saved.isLeft()) {
+          emit(state.copyWith(error: saved.fold((l) => l.message, (_) => null)));
+          return;
+        }
         await loadDailyLog(preserveScannedMeal: meal);
       },
     );
@@ -153,7 +159,7 @@ class FoodLogCubit extends Cubit<FoodLogState> {
     final result = await _deleteFood(meal);
     result.match(
       (l) => emit(state.copyWith(error: l.message)),
-      (_) async => loadDailyLog(),
+      (_) => loadDailyLog(),
     );
   }
 
@@ -161,7 +167,7 @@ class FoodLogCubit extends Cubit<FoodLogState> {
     final result = await _updateFood(meal);
     result.match(
       (l) => emit(state.copyWith(error: l.message)),
-      (_) async => loadDailyLog(),
+      (_) => loadDailyLog(),
     );
   }
 
