@@ -16,11 +16,9 @@ class ApiService {
     required Object body,
   }) async {
     try {
-      final response = await _client.post(
-        url,
-        headers: headers,
-        body: jsonEncode(body),
-      );
+      final response = await _client
+          .post(url, headers: headers, body: jsonEncode(body))
+          .timeout(const Duration(seconds: 30));
 
       if (response.statusCode < 200 || response.statusCode >= 300) {
         return left(
