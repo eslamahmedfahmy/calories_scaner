@@ -11,7 +11,7 @@ void main() {
         activityLevel: 'Moderate',
         gender: 'Male',
       );
-      expect(kcal, 2628);
+      expect(kcal, 2555); // (10*70 + 6.25*175 - 5*30 + 5) * 1.55
     });
 
     test('unknown activity level falls back to sedentary', () {
