@@ -1,175 +1,75 @@
 <div align="center">
 
-<br>
-
- <img src="assets/screenshots/main.png" width="140"/>
+<img src="assets/screenshots/main.png" width="140"/>
 
 # Cal AI
 
-**AI-Powered Calorie Tracker for Android & iOS**
-
-Track what you eat. Understand your nutrition. Powered by AI.
-
-<br>
+**AI calorie tracker for Android and iOS.** Take a photo of your meal, get calories and macros.
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.0+-02569B?style=flat-square&logo=flutter&logoColor=white)
 ![Dart](https://img.shields.io/badge/Dart-3.0+-0175C2?style=flat-square&logo=dart&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-10B981?style=flat-square)
-![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-lightgrey?style=flat-square)
-
-<br>
 
 </div>
-
----
 
 ## Overview
 
-Cal AI is a Flutter mobile app that uses artificial intelligence to make calorie tracking effortless. Photograph your meal, and Cal AI instantly estimates nutritional information — no manual logging required.
-
----
+Cal AI removes manual food logging. You photograph a meal, an AI vision model estimates the calories, protein, carbs and fats, and the app tracks your day against your personal goal.
 
 ## Screenshots
 
-<table>
-  <tr>
-    <th align="center">Onboarding</th>
-    <th align="center">Calorie Log & Tracking</th>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="assets/screenshots/o1.png" width="140"/>
-      <img src="assets/screenshots/o2.png" width="140"/>
-      <img src="assets/screenshots/o3.png" width="140"/>
-      <br/>
-      <img src="assets/screenshots/o4.png" width="140"/>
-      <img src="assets/screenshots/o5.png" width="140"/>
-      <img src="assets/screenshots/o6.png" width="140"/>
-    </td>
-    <td align="center">
-      <img src="assets/screenshots/h1.png" width="140"/>
-      <img src="assets/screenshots/h2.png" width="140"/>
-      <br/>
-      <img src="assets/screenshots/h3.png" width="140"/>
-      <img src="assets/screenshots/h4.png" width="140"/>
-    </td>
-  </tr>
-</table>
-
----
+(Keep the existing table of onboarding `o1-o6` and tracking `h1-h4` screenshots.)
 
 ## Features
 
-| Feature                     | Description                                                                                 |
-| --------------------------- | ------------------------------------------------------------------------------------------- |
-| **AI Meal Recognition**     | Snap a photo of your food — Cal AI identifies the item and estimates calories automatically |
-| **Daily Calorie Dashboard** | Clean summary of your daily intake vs your personal calorie goal                            |
-| **Macro Breakdown**         | Track proteins, carbohydrates, and fats alongside total calories                            |
-| **Meal History Log**        | Full history of logged meals with timestamps and nutritional details                        |
-| **Personalized Goals**      | Set custom calorie and macro targets based on your health goals                             |
-| **Nutritional Insights**    | AI-generated tips based on your eating patterns                                             |
-| **Lightweight & Fast**      | Smooth, native experience on both Android and iOS                                           |
+- **AI meal recognition:** photo in, nutrition estimate out
+- **Daily dashboard:** intake vs. goal, with progress indicators and charts
+- **Macro breakdown:** protein, carbs and fats per meal and per day
+- **Meal history:** logged meals with timestamps
+- **Personalized goals:** onboarding collects your data and sets targets
+- **PDF export** (TODO: confirm, `fpdart`/pdf usage not verified)
 
----
+## Tech stack
 
-## Tech Stack
+| Layer | Technology |
+| --- | --- |
+| Framework | Flutter, Dart |
+| State management | Bloc / Cubit |
+| Architecture | Feature-first, Clean Architecture, get_it for DI, fpdart for error handling |
+| Navigation | go_router |
+| AI | Groq API |
+| Charts | fl_chart |
+| Storage | Shared Preferences |
+| Serialization | json_annotation |
+| UI | flutter_screenutil, flutter_svg, google_fonts, cached_network_image |
 
-| Layer            | Technology         |
-| ---------------- | ------------------ |
-| Framework        | Flutter (Dart)     |
-| AI / NLP         | Grok AI            |
-| State Management | Cubit              |
-| Local Storage    | Shared Preferences |
-| UI Components    | Material Design 3  |
+## Project structure
 
----
-
-## Getting Started
-
-### Prerequisites
-
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) v3.0 or higher
-- [Dart](https://dart.dev/get-dart) — bundled with Flutter
-
-### Installation
-
-**1. Clone the repository**
-
-```bash
-git clone [https://github.com/eslamahmedfahmy/calories_scaner]
+```
+lib/
+├── main.dart
+├── app_widgets/     # shared widgets
+├── core/            # DI, networking, errors, utils
+├── features/
+│   ├── onboarding/
+│   └── calories/
+├── gen/             # generated assets
+└── theme/
 ```
 
-**2. Install dependencies**
+## Getting started
 
 ```bash
+git clone https://github.com/eslamahmedfahmy/calories_scaner.git
+cd calories_scaner
 flutter pub get
-```
-
-**3. Configure environment variables**
-
-The app reads a Groq API key at build time. Do not put it in a file inside the project. Pass it when you run:
-
-```bash
 flutter run --dart-define=GROQ_API_KEY=your_key_here
 ```
 
-See `.env.example` for the variable name. Never commit real keys.
-
-**4. Run the app**
-
-```bash
-flutter run
-```
-
----
-
-## Project Structure
-
-```
-cal-ai/
-├── lib/
-│   ├── main.dart           # App entry point
-│   ├── screens/            # UI screens
-│   ├── widgets/            # Reusable UI components
-│   ├── models/             # Data models
-│   ├── services/           # API & AI services
-│   └── utils/              # Helper functions
-├── assets/
-│   └── images/             # App images & icons
-├── test/                   # Unit & widget tests
-├── pubspec.yaml            # Dependencies
-└── README.md
-```
-
----
-
-## Contributing
-
-Contributions are welcome. To get started:
-
-1. Fork the repository
-2. Create a new branch — `git checkout -b feature/your-feature-name`
-3. Commit your changes — `git commit -m 'Add some feature'`
-4. Push to the branch — `git push origin feature/your-feature-name`
-5. Open a Pull Request
-
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
+The API key is passed at build time and is never stored in the repo.
 
 ## Author
 
-**Eslam Fahmy**
+**Eslam Fahmy** · [LinkedIn](https://www.linkedin.com/in/eslam-ahmed-fahmy-340220202) · eslam50080@yahoo.com
 
-- Email: eslam50080@yahoo.com
-- LinkedIn: [www.linkedin.com/in/eslam-ahmed-fahmy-340220202]
-
----
-
-<div align="center">
-<sub>Built with Flutter &mdash; Cal AI &copy; Eslam Fahmy</sub>
-</div>
+MIT License.
